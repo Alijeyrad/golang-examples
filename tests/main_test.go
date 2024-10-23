@@ -15,6 +15,7 @@ func TestServer1(t *testing.T) {
 	ln, _ := net.Listen("tcp", ":8080")
 
 	server, _ := server.NewServer(ln)
+	defer server.Ln.Close()
 
 	go server.Start()
 
