@@ -12,7 +12,6 @@ import (
 
 type Server struct {
 	Ln          net.Listener
-	Port        string
 	Connections []net.Conn
 }
 
@@ -33,6 +32,10 @@ func (s *Server) Start() error {
 	for {
 		// Accept a connection
 		conn, err := s.Ln.Accept()
+		if err != nil {
+			fmt.Println(err)
+			continue
+		}
 		ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
 
 		connection := &Connection{
@@ -41,10 +44,6 @@ func (s *Server) Start() error {
 			CancelFunc: cancel,
 		}
 
-		if err != nil {
-			fmt.Println(err)
-			continue
-		}
 		// Handle the connection in a new goroutine
 		go s.handleClient(connection)
 	}

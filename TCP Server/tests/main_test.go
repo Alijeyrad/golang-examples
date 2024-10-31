@@ -11,11 +11,11 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestServer1(t *testing.T) {
+func TestSalam(t *testing.T) {
 	ln, _ := net.Listen("tcp", ":8080")
 
 	server, _ := server.NewServer(ln)
-	defer server.Ln.Close()
+	// defer server.Ln.Close()
 
 	go server.Start()
 
